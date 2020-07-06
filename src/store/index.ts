@@ -15,9 +15,12 @@ const persistConfig = {
   storage,
 };
 
+const enhancer =
+  process.env.NODE_ENV === 'development' ? console.tron.createEnhancer() : null;
+
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-const store: Store<ApplicationState> = createStore(persistedReducer);
+const store: Store<ApplicationState> = createStore(persistedReducer, enhancer);
 const persistor = persistStore(store);
 
 export { store, persistor };
